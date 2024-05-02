@@ -86,50 +86,53 @@
   }
 
   function creerDivAchat(index){
-      let acheté = document.createElement("div");
-      acheté.setAttribute("id",index);
-      let name = document.createElement("div");
-      name.setAttribute("id",index+"-nom");
-      name.textContent = catalogue[index].nom;
-      let qt = document.createElement("div");
-      qt.setAttribute("id",index+"-quantite");
+      let divAchat = document.createElement("div");
+      divAchat.setAttribute("id",index);
+      let divNom = document.createElement("div");
+      divNom.setAttribute("id",index+"-nom");
+      divNom.textContent = catalogue[index].nom;
+      let divQuantite = document.createElement("div");
+      divQuantite.setAttribute("id",index+"-quantite");
       let quantite = quantites[index];
-      qt.textContent = quantite;
-      acheté.appendChild(qt);
-      acheté.appendChild(name);
-      let rm = document.createElement("button");
-      rm.setAttribute("id",index+"-suppr");
-      rm.textContent="Supprimer";
-      acheté.appendChild(rm);
-      rm.addEventListener('click', function() {
-        rm.parentElement.remove();
+      divQuantite.textContent = quantite;
+      divAchat.appendChild(divQuantite);
+      divAchat.appendChild(divNom);
+      let boutonSupprProduit = document.createElement("button");
+      boutonSupprProduit.setAttribute("id",index+"-suppr");
+      boutonSupprProduit.textContent="Supprimer";
+      divAchat.appendChild(boutonSupprProduit);
+      boutonSupprProduit.addEventListener('click', function() {
+        boutonSupprProduit.parentElement.remove();
         let montant = document.getElementById("montant");
         let old = parseInt(montant.textContent);
         let newval = old - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
         montant.textContent = newval.toString();
         quantites[index]=0;
       });
-      divAchats.appendChild(acheté);
-      return acheté;
+      divAchats.appendChild(divAchat);
+      return divAchat;
   }
 
   function mettreAJourPanier(index){
-    let montant = document.getElementById("montant");
+    let divMontant = document.getElementById("montant");
+    let valeurMontant = parseInt(divMontant.textContent);
+    let quantiteItem = parseInt(quantites[index]);
+    let prixItem = parseInt(catalogue[index].prix);
     let qte = parseInt(quantites[index]);
     let existant = document.getElementById(index+"-quantite");
     let nouveaumontant=0;
     if(qte > 0 && existant !== null ){
       for(let i=0;i<quantites.length;i++){
-        nouveaumontant+=parseInt(quantites[i])*catalogue[i].prix;
+        nouveaumontant+=parseInt(quantites[i])*parseInt(catalogue[i].prix);
       }
       montant.textContent = nouveaumontant.toString();
       existant.textContent = quantites[index];
     }
     else{
-      nouveaumontant = parseInt(montant.textContent) + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
-      let newdiv = creerDivAchat(index);
-      let laquantite = newdiv.firstChild;
-      laquantite.textContent = quantites[index];
+      nouveaumontant = valeurMontant + quantiteItem * prixItem;
+      let nouvelleDivProduit = creerDivAchat(index);
+      let divQuantiteExistante = nouvelleDivProduit.firstChild;
+      divQuantiteExistante.textContent = quantites[index];
     }
     montant.textContent=nouveaumontant;
   }
