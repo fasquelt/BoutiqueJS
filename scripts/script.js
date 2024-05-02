@@ -86,21 +86,21 @@
   }
 
   function creerDivAchat(index){
-      let divAchat = document.createElement("div");
-      divAchat.setAttribute("id",index);
-      let divNom = document.createElement("div");
-      divNom.setAttribute("id",index+"-nom");
-      divNom.textContent = catalogue[index].nom;
-      let divQuantite = document.createElement("div");
-      divQuantite.setAttribute("id",index+"-quantite");
+      let newDivAchat = document.createElement("div");
+      newDivAchat.setAttribute("id",index);
+      let newDivNom = document.createElement("div");
+      newDivNom.setAttribute("id",index+"-nom");
+      newDivNom.textContent = catalogue[index].nom;
+      let newDivQuantite = document.createElement("div");
+      newDivQuantite.setAttribute("id",index+"-quantite");
       let quantite = quantites[index];
-      divQuantite.textContent = quantite;
-      divAchat.appendChild(divQuantite);
-      divAchat.appendChild(divNom);
+      newDivQuantite.textContent = quantite;
+      newDivAchat.appendChild(newDivQuantite);
+      newDivAchat.appendChild(newDivNom);
       let boutonSupprProduit = document.createElement("button");
       boutonSupprProduit.setAttribute("id",index+"-suppr");
       boutonSupprProduit.textContent="Supprimer";
-      divAchat.appendChild(boutonSupprProduit);
+      newDivAchat.appendChild(boutonSupprProduit);
       boutonSupprProduit.addEventListener('click', function() {
         boutonSupprProduit.parentElement.remove();
         let montant = document.getElementById("montant");
@@ -109,8 +109,8 @@
         montant.textContent = newval.toString();
         quantites[index]=0;
       });
-      divAchats.appendChild(divAchat);
-      return divAchat;
+      divAchats.appendChild(newDivAchat);
+      return newDivAchat;
   }
 
   function mettreAJourPanier(index){
@@ -131,8 +131,8 @@
     else{
       nouveaumontant = valeurMontant + quantiteItem * prixItem;
       let nouvelleDivProduit = creerDivAchat(index);
-      let divQuantiteExistante = nouvelleDivProduit.firstChild;
-      divQuantiteExistante.textContent = quantites[index];
+      let newDivQuantiteExistante = nouvelleDivProduit.firstChild;
+      newDivQuantiteExistante.textContent = quantites[index];
     }
     montant.textContent=nouveaumontant;
   }
