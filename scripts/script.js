@@ -32,9 +32,27 @@
   */
   function afficherBoutique() {
     for (let i = 0; i < catalogue.length; i++) {
-      divBoutique.appendChild(creerDivProduit(i));
+      if(tabProduitsFiltres[i]){
+        console.log("affichage");
+        divBoutique.appendChild(creerDivProduit(i));
+      }
     }
   }
+
+  inputFiltre.addEventListener("input",function(){
+    console.log("Appel filtre");
+    for(let i=0;i<tabProduitsFiltres.length;i++){
+      if(catalogue[i].nom.includes(inputFiltre.value)){
+        tabProduitsFiltres[i] = true;
+        console.log("true");
+      }
+      else{
+        tabProduitsFiltres[i] = false;
+      }
+    }
+    divBoutique.innerHTML='';
+    afficherBoutique();
+  })
 
   /*
   * creation d'une div produit avec comme id 
@@ -102,24 +120,22 @@
     let liste = document.getElementById("achats");
     let montant = document.getElementById("montant");
     let qte = parseInt(quantites[index]);
-    let montantactuel = parseInt(montant.textContent);
     let existant = document.getElementById(index+"-quantite");
-    let ancienneqte;
-    let nouveaumontant;
+    let nouveaumontant=0;
     if(qte > 0 && existant !== null ){
-      nouveaumontant = parseInt(montantactuel) + (parseInt(quantites[index])- parseInt(ancienneqte))*parseInt(catalogue[index].prix);
+      for(let i=0;i<quantites.length;i++){
+        nouveaumontant+=parseInt(quantites[i])*catalogue[i].prix;
+      }
       montant.textContent = nouveaumontant.toString();
       existant.textContent = quantites[index];
     }
     else{
-      nouveaumontant = parseInt(quantites[index]) * parseInt(catalogue[index].prix);
+      nouveaumontant = parseInt(montant.textContent) + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
       let newdiv = creerDivAchat(index);
       let laquantite = newdiv.firstChild;
       laquantite.textContent = quantites[index];
     }
-    montant.textContent=nouveaumontant.toString();
-
-
+    montant.textContent=nouveaumontant;
   }
 
   /*
