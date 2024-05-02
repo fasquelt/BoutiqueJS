@@ -33,14 +33,12 @@
   function afficherBoutique() {
     for (let i = 0; i < catalogue.length; i++) {
       if(tabProduitsFiltres[i]){
-        console.log("affichage");
         divBoutique.appendChild(creerDivProduit(i));
       }
     }
   }
 
   inputFiltre.addEventListener("input",function(){
-    console.log("Appel filtre");
     for(let i=0;i<tabProduitsFiltres.length;i++){
       if(catalogue[i].nom.includes(inputFiltre.value)){
         tabProduitsFiltres[i] = true;
@@ -52,7 +50,7 @@
     }
     divBoutique.innerHTML='';
     afficherBoutique();
-  })
+  });
 
   /*
   * creation d'une div produit avec comme id 
@@ -66,7 +64,7 @@
     produit.className = "produit";
     // donne un id au produit
     produit.id = index + "-" + produitId;
-    produit.image = "images/"
+    produit.image = "images/";
     produit.innerHTML = `
 <h2>${catalogue[index].nom}</h2>
 <figure>
@@ -91,7 +89,6 @@
       let acheté = document.createElement("div");
       acheté.setAttribute("id",index);
       let name = document.createElement("div");
-      console.log("Ajout de la div  de nom"+acheté.className)
       name.setAttribute("id",index+"-nom");
       name.textContent = catalogue[index].nom;
       let qt = document.createElement("div");
@@ -111,13 +108,12 @@
         let newval = old - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
         montant.textContent = newval.toString();
         quantites[index]=0;
-      })
+      });
       divAchats.appendChild(acheté);
       return acheté;
   }
 
   function mettreAJourPanier(index){
-    let liste = document.getElementById("achats");
     let montant = document.getElementById("montant");
     let qte = parseInt(quantites[index]);
     let existant = document.getElementById(index+"-quantite");
@@ -166,7 +162,7 @@
         button.disabled = true;
       }
       button.disabled = iv > 0 ? false : true; 
-    })
+    });
 
     // creation du bouton pour ajouter au panier
     let button = document.createElement("button");
@@ -179,7 +175,7 @@
     button.addEventListener('click', function() {
       var iv = parseInt(input.value);
       if( button.disabled === false){
-        quantites[index]=iv
+        quantites[index]=iv;
         mettreAJourPanier(index);
         button.disabled = true;
         input.value="0";
@@ -187,7 +183,7 @@
       else{
         button.disabled = false;
       }
-    })
+    });
 
     // la div de controlee est retournee
     return controle;
