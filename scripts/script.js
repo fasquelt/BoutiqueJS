@@ -163,9 +163,9 @@
       var iv = parseInt(input.value);
       if(iv < input.min || iv > input.max || isNaN(iv) === true ){
         input.value = 0;
-        button.disabled === true;
+        button.disabled = true;
       }
-      iv > 0 ? button.disabled = false : button.disabled = true; 
+      button.disabled = iv > 0 ? false : true; 
     })
 
     // creation du bouton pour ajouter au panier
