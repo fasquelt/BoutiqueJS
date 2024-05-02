@@ -89,27 +89,33 @@
       rm.addEventListener('click', function() {
         rm.parentElement.remove();
         let montant = document.getElementById("montant");
-        let newval = parseInt(montant.textContent) - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
+        let old = parseInt(montant.textContent);
+        let newval = old - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
         montant.textContent = newval.toString();
         quantites[index]=0;
       })
+      divAchats.appendChild(acheté);
       return acheté;
   }
 
   function mettreAJourPanier(index){
     let liste = document.getElementById("achats");
     let montant = document.getElementById("montant");
-    var existant = document.getElementById(index.toString()+"-quantite");
     let qte = parseInt(quantites[index]);
     let montantactuel = parseInt(montant.textContent);
+    let existant = document.getElementById(index+"-quantite");
+    let ancienneqte;
     let nouveaumontant;
-    if(qte !== 0 && existant !== null){
-      nouveaumontant = quantites[index] * parseInt(catalogue[index].prix);
+    if(qte > 0 && existant !== null ){
+      nouveaumontant = parseInt(montantactuel) + (parseInt(quantites[index])- parseInt(ancienneqte))*parseInt(catalogue[index].prix);
+      montant.textContent = nouveaumontant.toString();
       existant.textContent = quantites[index];
     }
     else{
-      nouveaumontant = montantactuel + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
-      liste.appendChild(creerDivAchat(index));
+      nouveaumontant = parseInt(quantites[index]) * parseInt(catalogue[index].prix);
+      let newdiv = creerDivAchat(index);
+      let laquantite = newdiv.firstChild;
+      laquantite.textContent = quantites[index];
     }
     montant.textContent=nouveaumontant.toString();
 
@@ -156,11 +162,14 @@
 
     button.addEventListener('click', function() {
       var iv = parseInt(input.value);
-      if( button.disabled === false ){
-        quantites[index]+=iv
+      if( button.disabled === false){
+        quantites[index]=iv
         mettreAJourPanier(index);
         button.disabled = true;
         input.value="0";
+      }
+      else{
+        button.disabled = false;
       }
     })
 
