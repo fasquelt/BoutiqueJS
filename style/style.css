@@ -222,6 +222,7 @@ div.controle button, div.controle input {
 
 div [id$="image"] img{
 	width: 6rem;
+	padding: 1rem;;
 }
 
 div [id$="achat"]{
@@ -229,7 +230,7 @@ div [id$="achat"]{
 	padding: 0.5rem;
 }
 
-button [id$="-suppr"]{
+button [id$="suppr"]{
 	background-color: red;
 	padding: 0.5rem;
 }

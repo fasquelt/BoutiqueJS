@@ -87,7 +87,7 @@
 
   function creerDivAchat(index){
       let newDivAchat = document.createElement("div");
-      newDivAchat.setAttribute("id","achat"+index);
+      newDivAchat.setAttribute("id",index+"-achat");
       let newDivNom = document.createElement("div");
       newDivNom.setAttribute("id",index+"-nom");
       newDivNom.textContent = catalogue[index].nom;
