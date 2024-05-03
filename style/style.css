@@ -234,8 +234,3 @@ button [id$="suppr"]{
 	background-color: red;
 	padding: 0.5rem;
 }
-
-.hori{
-	display: flex;
-	flex-direction: row;
-}
