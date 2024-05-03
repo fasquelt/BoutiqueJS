@@ -219,3 +219,17 @@ div.controle button, div.controle input {
 	margin : 4px 2px;
 	padding : 2px;
 }
+
+div [id$="image"] img{
+	width: 6rem;
+}
+
+div [id$="achat"]{
+	border: dotted black 0.1rem;
+	padding: 0.5rem;
+}
+
+button [id$="-suppr"]{
+	background-color: red;
+	padding: 0.5rem;
+}

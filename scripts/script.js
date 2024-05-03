@@ -87,16 +87,25 @@
 
   function creerDivAchat(index){
       let newDivAchat = document.createElement("div");
-      newDivAchat.setAttribute("id",index);
+      newDivAchat.setAttribute("id","achat"+index);
       let newDivNom = document.createElement("div");
       newDivNom.setAttribute("id",index+"-nom");
       newDivNom.textContent = catalogue[index].nom;
       let newDivQuantite = document.createElement("div");
       newDivQuantite.setAttribute("id",index+"-quantite");
       let quantite = quantites[index];
+      let newDivImage = document.createElement("div");
+      newDivImage.setAttribute("id",index+"-image");
+      newDivImage.innerHTML = `
+        <img 
+          src="${catalogue[index].image}" 
+          alt="${catalogue[index].description}"
+        /> `
+      ;
       newDivQuantite.textContent = quantite;
       newDivAchat.appendChild(newDivQuantite);
       newDivAchat.appendChild(newDivNom);
+      newDivAchat.appendChild(newDivImage);
       let boutonSupprProduit = document.createElement("button");
       boutonSupprProduit.setAttribute("id",index+"-suppr");
       boutonSupprProduit.textContent="Supprimer";
