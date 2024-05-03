@@ -134,13 +134,13 @@ button.commander {
 	background-image : url("./images/panier.jpg");
 }
 
-button.supprimer {
-	width : 19px;
-	height : 19px;
+button[id$="suppr"] {
+	padding-left: 1rem;
+	padding-right: 1rem;
 	background-size : cover;
 	border : solid 2px white;
 	box-shadow : 0px 0px 2px 1px rgba(200,0,0,0.6);	
-	background-image : url("./images/poubelle.jpg");
+	background-color: red;
 }
 
 input[type="number"] {
