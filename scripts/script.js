@@ -93,9 +93,11 @@
       newDivNom.textContent = catalogue[index].nom;
       let newDivQuantite = document.createElement("div");
       newDivQuantite.setAttribute("id",index+"-quantite");
+      newDivQuantite.setAttribute("class","hori");
       let quantite = quantites[index];
       let newDivImage = document.createElement("div");
       newDivImage.setAttribute("id",index+"-image");
+      newDivQuantite.setAttribute("class","hori");
       newDivImage.innerHTML = `
         <img 
           src="${catalogue[index].image}" 
