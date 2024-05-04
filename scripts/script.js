@@ -145,10 +145,6 @@
       return newDivAchat;
   }
 
-  function addControleSuppression(index){
-    
-  }
-
   function mettreAJourPanier(index){
     let divMontant = document.getElementById("montant");
     let valeurMontant = parseInt(divMontant.textContent);
