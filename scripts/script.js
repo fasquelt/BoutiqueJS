@@ -86,6 +86,12 @@
 
   function creerDivAchat(index){
       let newDivAchat = document.createElement("div");
+      ajoutHTMLDivAchat(index, newDivAchat);
+      divAchats.appendChild(newDivAchat);
+      return newDivAchat;
+  }
+
+  function ajoutHTMLDivAchat(index, newDivAchat){
       newDivAchat.setAttribute("id",index+"-achat");
       let newDivNom = document.createElement("div");
       newDivNom.setAttribute("id",index+"-nom");
@@ -106,6 +112,7 @@
       newDivAchat.appendChild(newDivQuantite);
       newDivAchat.appendChild(newDivNom);
       newDivAchat.appendChild(newDivImage);
+      console.log("ajout n q i ");
       let nbSupprProduit = document.createElement("input");
       nbSupprProduit.type = "number";
       nbSupprProduit.step = "1";
@@ -141,9 +148,10 @@
         let newval = old - parseInt(catalogue[index].prix)*parseInt(nbAEnlever);
         montant.textContent = newval.toString();
       });
-      divAchats.appendChild(newDivAchat);
-      return newDivAchat;
+      console.log("ajout dans le DOM ");
+
   }
+
 
   function mettreAJourPanier(index){
     let divMontant = document.getElementById("montant");
