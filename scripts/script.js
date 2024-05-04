@@ -107,10 +107,18 @@
       newDivAchat.appendChild(newDivQuantite);
       newDivAchat.appendChild(newDivNom);
       newDivAchat.appendChild(newDivImage);
+      let nbSupprProduit = document.createElement("input");
+      nbSupprProduit.type = "number";
+      nbSupprProduit.step = "1";
+      nbSupprProduit.value = "0";
+      nbSupprProduit.min = "0";
+      nbSupprProduit.max = quantites[index].toString();
+      nbSupprProduit.setAttribute("id",index+"-supprnb");
       let boutonSupprProduit = document.createElement("button");
       boutonSupprProduit.setAttribute("id",index+"-suppr");
       boutonSupprProduit.textContent="Supprimer";
       newDivAchat.appendChild(boutonSupprProduit);
+      newDivAchat.appendChild(nbSupprProduit);
       boutonSupprProduit.addEventListener('click', function() {
         boutonSupprProduit.parentElement.remove();
         let montant = document.getElementById("montant");
