@@ -117,8 +117,16 @@
       let boutonSupprProduit = document.createElement("button");
       boutonSupprProduit.setAttribute("id",index+"-suppr");
       boutonSupprProduit.textContent="Supprimer";
+      boutonSupprProduit.disabled = true;
       newDivAchat.appendChild(boutonSupprProduit);
       newDivAchat.appendChild(nbSupprProduit);
+      nbSupprProduit.addEventListener('input', function() {
+        var iv = parseInt(nbSupprProduit.value);
+        if(iv < nbSupprProduit.min || iv > nbSupprProduit.max || isNaN(iv) === true ){
+          boutonSupprProduit.disabled = true;
+        }
+        boutonSupprProduit.disabled = false;
+      });
       boutonSupprProduit.addEventListener('click', function() {
         boutonSupprProduit.parentElement.remove();
         let montant = document.getElementById("montant");
@@ -129,6 +137,10 @@
       });
       divAchats.appendChild(newDivAchat);
       return newDivAchat;
+  }
+
+  function addControleSuppression(index){
+    
   }
 
   function mettreAJourPanier(index){
