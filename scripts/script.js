@@ -42,7 +42,6 @@
     for(let i=0;i<tabProduitsFiltres.length;i++){
       if(catalogue[i].nom.includes(inputFiltre.value)){
         tabProduitsFiltres[i] = true;
-        console.log("true");
       }
       else{
         tabProduitsFiltres[i] = false;
@@ -128,12 +127,19 @@
         boutonSupprProduit.disabled = false;
       });
       boutonSupprProduit.addEventListener('click', function() {
-        boutonSupprProduit.parentElement.remove();
+        let nbAEnlever = parseInt(nbSupprProduit.value);
+        nbSupprProduit.value="0";
+        let qteActuelle = quantites[index]
+        if(nbAEnlever ===  qteActuelle){
+          nbSupprProduit.parentElement.remove();
+        }
+        let newQte = quantites[index] - nbAEnlever;
+        newDivQuantite.textContent = newQte;
+        quantites[index]=newQte;
         let montant = document.getElementById("montant");
         let old = parseInt(montant.textContent);
-        let newval = old - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
+        let newval = old - parseInt(catalogue[index].prix)*parseInt(nbAEnlever);
         montant.textContent = newval.toString();
-        quantites[index]=0;
       });
       divAchats.appendChild(newDivAchat);
       return newDivAchat;
@@ -208,7 +214,7 @@
     button.addEventListener('click', function() {
       var iv = parseInt(input.value);
       if( button.disabled === false){
-        quantites[index]=iv;
+        quantites[index]+=iv;
         mettreAJourPanier(index);
         button.disabled = true;
         input.value="0";
