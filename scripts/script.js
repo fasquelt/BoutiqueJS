@@ -1,6 +1,8 @@
 (function () {
   // === constantes ===
   const MAX_QTE = 9;
+  const MIN_QTE = INIT_VALUE = 0;
+  const STEP_INPUT = 1;
   const produitId = "produit";
   const achatId = "achat";
   const inputId = "qte";
@@ -85,13 +87,14 @@
       rm.textContent="Supprimer";
       acheté.appendChild(rm);
       let img = document.createElement("div");
-        img.innerHTML = 
+        img.innerHTML = `
         <figure>
         <img 
             src="${catalogue[index].image}" 
             alt="${catalogue[index].description}"
           />
         </figure>
+        `
         acheté.appendChild(img);
       rm.addEventListener('click', function() {
         rm.parentElement.remove();
@@ -110,13 +113,14 @@
     let qte = parseInt(quantites[index]);
     let montantactuel = parseInt(montant.textContent);
     let nouveaumontant;
-    if(qte !== 0 && existant !== null){
-      nouveaumontant = montantactuel + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
-      liste.appendChild(creerDivAchat(index));
-    }
-    else{
+    
+    if(qte > 0 && existant !== null){      
       nouveaumontant = quantites[index] * parseInt(catalogue[index].prix);
       existant.textContent = quantites[index];
+    }
+    else{
+      nouveaumontant = montantactuel + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
+      liste.appendChild(creerDivAchat(index));
     }
     montant.textContent=nouveaumontant.toString();
 
@@ -127,8 +131,7 @@
   * ajoute les elements de formulaire pour l'ajout au panier
   * @param index = l'index du produit dans catalogueue
   *
-  * AJOUTER les listeners pour rendre l'input et le bouton
-  * fonctionnels
+  * AJOUTER les listeners pour que l'input ajoute aussi au panier 1 par 1
   */
   function creerControleProduit(index) {
     let controle = document.createElement("div");
@@ -138,9 +141,9 @@
     let input = document.createElement("input");
     input.id = index + '-' + inputId;
     input.type = "number";
-    input.step = "1";
-    input.value = "0";
-    input.min = "0";
+    input.step = STEP_INPUT.toString();
+    input.value = INIT_VALUE.toString();
+    input.min = MIN_QTE.toString();
     input.max = MAX_QTE.toString();
     controle.appendChild(input);
 
@@ -148,18 +151,16 @@
       var iv = parseInt(input.value);
       if(iv < input.min || iv > input.max || isNaN(iv) === true ){
         input.value = 0;
-        button.disabled === true;
+        button.disabled = true;
       }
       else{
-        iv > 0 ? button.disabled = false : button.disabled = true; 
+        button.disabled = false; 
       }
     })
 
-    // creation du bouton pour ajouter au panier
     let button = document.createElement("button");
     button.className = 'commander';
     button.id = index + "-" + achatId;
-    // inactif tant que la valeur de l'input quantite est 0
     button.disabled = true;
     controle.appendChild(button);
 
@@ -168,12 +169,10 @@
       if( button.disabled === false ){
         quantites[index]+=iv
         mettreAJourPanier(index);
-        button.disabled = true;
         input.value="0";
       }
     })
 
-    // la div de controlee est retournee
     return controle;
   }
 })();
