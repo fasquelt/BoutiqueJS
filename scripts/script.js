@@ -48,7 +48,6 @@
     produit.className = "produit";
     // donne un id au produit
     produit.id = index + "-" + produitId;
-    produit.image = "images/"
     produit.innerHTML = `
 <h2>${catalogue[index].nom}</h2>
 <figure>
@@ -73,7 +72,6 @@
       let acheté = document.createElement("div");
       acheté.setAttribute("id",index);
       let name = document.createElement("div");
-      console.log("Ajout de la div  de nom"+acheté.className)
       name.setAttribute("id",index+"-nom");
       name.textContent = catalogue[index].nom;
       let qt = document.createElement("div");
@@ -86,6 +84,15 @@
       rm.setAttribute("id",index+"-suppr");
       rm.textContent="Supprimer";
       acheté.appendChild(rm);
+      let img = document.createElement("div");
+        img.innerHTML = 
+        <figure>
+        <img 
+            src="${catalogue[index].image}" 
+            alt="${catalogue[index].description}"
+          />
+        </figure>
+        acheté.appendChild(img);
       rm.addEventListener('click', function() {
         rm.parentElement.remove();
         let montant = document.getElementById("montant");
@@ -104,12 +111,12 @@
     let montantactuel = parseInt(montant.textContent);
     let nouveaumontant;
     if(qte !== 0 && existant !== null){
-      nouveaumontant = quantites[index] * parseInt(catalogue[index].prix);
-      existant.textContent = quantites[index];
-    }
-    else{
       nouveaumontant = montantactuel + parseInt(quantites[index]) * parseInt(catalogue[index].prix);
       liste.appendChild(creerDivAchat(index));
+    }
+    else{
+      nouveaumontant = quantites[index] * parseInt(catalogue[index].prix);
+      existant.textContent = quantites[index];
     }
     montant.textContent=nouveaumontant.toString();
 
@@ -143,7 +150,9 @@
         input.value = 0;
         button.disabled === true;
       }
-      iv > 0 ? button.disabled = false : button.disabled = true; 
+      else{
+        iv > 0 ? button.disabled = false : button.disabled = true; 
+      }
     })
 
     // creation du bouton pour ajouter au panier
