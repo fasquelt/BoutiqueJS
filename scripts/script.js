@@ -76,14 +76,14 @@
 
   function creerDivAchat(index){
       let acheté = document.createElement("div");
-      acheté.setAttribute("id",index);
+      acheté.setAttribute("id-achat-",index);
       let name = document.createElement("div");
       name.setAttribute("id",index+"-nom");
       name.textContent = "Produit : "+catalogue[index].nom;
       let qt = document.createElement("div");
       qt.setAttribute("id",index+"-quantite");
       let quantite = quantites[index];
-      qt.textContent = "Quantité : "+quantite;
+      qt.textContent = quantite;
       acheté.appendChild(qt);
       acheté.appendChild(name);
       let rm = document.createElement("button");
@@ -105,7 +105,7 @@
         let montant = document.getElementById("montant");
         let newval = parseInt(montant.textContent) - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
         montant.textContent = newval.toString();
-        total = montant;
+        total = newval;
         quantites[index]=0;
       })
       return acheté;
