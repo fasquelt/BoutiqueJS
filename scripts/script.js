@@ -156,42 +156,27 @@
       var iv = parseInt(input.value);
       if(iv < input.min || iv > input.max || isNaN(iv) === true ){
         input.value = 0;
-        button.disabled = true;
-      }
-      else{
-        button.disabled = false; 
       }
     })
 
-    input.addEventListener('keydown', (event) => {
-      const max = parseInt(input.max);
-      const min = parseInt(input.min);
+    let previousValue = parseInt(input.value);
+
+    input.addEventListener('input', function () {
       const currentValue = parseInt(input.value);
-      setTimeout(() => {
-        if (event.key === "ArrowUp" && !button.disabled && currentValue < max) {
-          quantites[index] += 1;
-          mettreAJourPanier(index);
-        } else if (event.key === "ArrowDown" && !button.disabled && currentValue > min) {
-          quantites[index] -= 1;
-          mettreAJourPanier(index);
-        }
-      }, 0);
-    });
-
-    let button = document.createElement("button");
-    button.className = 'commander';
-    button.id = index + "-" + achatId;
-    button.disabled = true;
-    controle.appendChild(button);
-
-    button.addEventListener('click', function() {
-      var iv = parseInt(input.value);
-      if( button.disabled === false ){
-        quantites[index]+=iv
-        mettreAJourPanier(index);
-        input.value="0";
+      if (isNaN(currentValue)) {
+        input.value = 0;
+        return;
       }
-    })
+      if (currentValue > previousValue) {
+        quantites[index] += 1;
+        mettreAJourPanier(index);
+      } else if (currentValue < previousValue) {
+        quantites[index] = currentValue >= 0 ? currentValue : 0 ;
+        mettreAJourPanier(index);
+      }
+
+      previousValue = currentValue;
+    });
 
     return controle;
   }
