@@ -79,11 +79,11 @@
       acheté.setAttribute("id",index);
       let name = document.createElement("div");
       name.setAttribute("id",index+"-nom");
-      name.textContent = catalogue[index].nom;
+      name.textContent = "Produit : "+catalogue[index].nom;
       let qt = document.createElement("div");
       qt.setAttribute("id",index+"-quantite");
       let quantite = quantites[index];
-      qt.textContent = quantite;
+      qt.textContent = "Quantité : "+quantite;
       acheté.appendChild(qt);
       acheté.appendChild(name);
       let rm = document.createElement("button");
@@ -162,6 +162,21 @@
         button.disabled = false; 
       }
     })
+
+    input.addEventListener('keydown', (event) => {
+      const max = parseInt(input.max);
+      const min = parseInt(input.min);
+      const currentValue = parseInt(input.value);
+      setTimeout(() => {
+        if (event.key === "ArrowUp" && !button.disabled && currentValue < max) {
+          quantites[index] += 1;
+          mettreAJourPanier(index);
+        } else if (event.key === "ArrowDown" && !button.disabled && currentValue > min) {
+          quantites[index] -= 1;
+          mettreAJourPanier(index);
+        }
+      }, 0);
+    });
 
     let button = document.createElement("button");
     button.className = 'commander';
