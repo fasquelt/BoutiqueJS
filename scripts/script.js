@@ -10,8 +10,6 @@
   // references vers les elements du DOM
   const divBoutique = document.getElementById("boutique");
   const inputFiltre = document.getElementById("filtre");
-  const divAchats = document.getElementById("achats");
-  const spanMontant = document.getElementById("montant");
 
   // le cout total des produits du panier
   let total = 0;
@@ -22,6 +20,7 @@
   // tableau des quantites de produits dans le panier
   let quantites = new Array(catalogue.length);
   quantites.fill(0);
+  inputFiltre.addEventListener("input", afficherBoutique);
 
   // initialisation du contenu de la boutique
   afficherBoutique();
@@ -33,8 +32,13 @@
   * tabProduitsFiltres
   */
   function afficherBoutique() {
+    divBoutique.innerHTML='';
+    const value = inputFiltre.value.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();    
     for (let i = 0; i < catalogue.length; i++) {
-      divBoutique.appendChild(creerDivProduit(i));
+      const nom = catalogue[i].nom.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      if (value === "" || nom.includes(value)) {
+        divBoutique.appendChild(creerDivProduit(i));
+      }
     }
   }
 
@@ -101,6 +105,7 @@
         let montant = document.getElementById("montant");
         let newval = parseInt(montant.textContent) - parseInt(catalogue[index].prix)*parseInt(quantites[index]);
         montant.textContent = newval.toString();
+        total = montant;
         quantites[index]=0;
       })
       return acheté;
@@ -114,8 +119,8 @@
     let montantactuel = parseInt(montant.textContent);
     let nouveaumontant;
     
-    if(qte > 0 && existant !== null){      
-      nouveaumontant = quantites[index] * parseInt(catalogue[index].prix);
+    if(existant){      
+      nouveaumontant = qte * parseInt(catalogue[index].prix);
       existant.textContent = quantites[index];
     }
     else{
